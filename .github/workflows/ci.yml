@@ -1,0 +1,63 @@
+
+name: CI & Security Quality Gate
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-audit:
+    name: Code Quality & Security Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.4.0
+        with:
+          version: "0.13.7"
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Create virtual environment
+        run: uv venv --python 3.11
+
+      - name: Install package and auditing dependencies
+        run: |
+          uv pip install -e ".[all]"
+          uv pip install ruff bandit pip-audit
+
+      - name: Lint (Ruff)
+        run: uv run ruff check src
+
+      - name: Check formatting (Ruff)
+        run: uv run ruff format --check src
+
+      - name: Static Application Security Testing (Bandit)
+        run: uv run bandit -r src/agentnet -f txt
+
+      - name: Dependency vulnerability audit (pip-audit)
+        run: uv run pip-audit
+
+      - name: Verify package build (PEP 517/518)
+        run: uv build
+
+      - name: Verify distribution filenames
+        run: |
+          ls -lh dist/
+          test -f dist/devagentnet-0.1.0-py3-none-any.whl
+          test -f dist/devagentnet-0.1.0.tar.gz

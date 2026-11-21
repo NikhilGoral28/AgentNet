@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+*.local
+
+E:\AgentNet\docs\CODEBASE_EXPLAINED.md
+E:\AgentNet\docs\AgentNet_Complete_Codebase_Reference.pdf
+SECURITY.md
+AgentNet_Complete_Codebase_Reference.pdf
+AgentNet_SRS.md
+docs/
+tests/
+Doc2/
