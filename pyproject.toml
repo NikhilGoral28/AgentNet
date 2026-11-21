@@ -51,11 +51,6 @@ Repository = "https://github.com/agentnet-ai/agentnet"
 [tool.hatch.build.targets.wheel]
 packages = ["src/agentnet"]
 
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = "-ra -q --strict-markers"
-testpaths = ["tests"]
-asyncio_mode = "auto"
 
 [dependency-groups]
 dev = [

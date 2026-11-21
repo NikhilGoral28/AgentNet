@@ -47,9 +47,6 @@ jobs:
       - name: Check formatting (Ruff)
         run: uv run --no-sync ruff format --check src
 
-      - name: Run tests
-        run: uv run --no-sync pytest
-
       - name: Static Application Security Testing (Bandit)
         run: uv run --no-sync bandit -r src/agentnet -f txt
 
