@@ -62,4 +62,4 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist/
           verify-metadata: true
-          attestations: true
+          attestations: false
